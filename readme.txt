@@ -1,3 +1,17 @@
+=== Plugin Name ===
+Contributors: muisit
+Tags: attachments, media, roles, security
+Requires at least: 5.4
+Tested up to: 5.4
+Stable tag: trunk
+Requires PHP: 7.2
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Role Based Access Management for Media files (attachments).
+
+== Description ==
+
 # Role Base Media Protector
 WordPress plugin to assign access roles to individual files.
 
@@ -31,4 +45,24 @@ location ~* ^/wp-content/uploads/ {
 ```
 
 The plugin will try to read the accessed file from the original request and apply role based access management on it.
+
+== Frequently Asked Questions ==
+
+= Is there a limit on the number of roles I can assign =
+
+There is no practical limit imposed by this plugin.
+
+== Screenshots ==
+
+1. The plugin adds an additional meta-box to the edit form of Media files
+
+== Changelog ==
+
+= 1.0 =
+* Initial version
+
+== Upgrade Notice ==
+
+= 1.0 =
+Initial version
 
