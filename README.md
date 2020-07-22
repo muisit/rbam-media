@@ -1,4 +1,4 @@
-# wp-media-protector
+# Role Base Media Protector
 WordPress plugin to assign access roles to individual files.
 
 This simple plugin allows administrators (anyone with access to the edit-post form for attachments/media) to set access based on roles.
@@ -25,7 +25,7 @@ case you have to insert a redirection manually. Freely copied from the [https://
 
 ```
 location ~* ^/wp-content/uploads/ {
-   rewrite (?i)^(/wp-content/uploads/.*)$ /index.php?aam-media=1 last;
+   rewrite (?i)^(/wp-content/uploads/.*)$ /index.php?rbam-media=1 last;
    return 307;
 }
 ```

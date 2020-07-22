@@ -1,33 +1,32 @@
 <?php
 
 /**
- * MediaProtector Editor routines
+ * Role Based Media Protector Editor routines
  *
- * @package             wp-media-protector
+ * @package             rbam-media
  * @author              Michiel Uitdehaag
  * @copyright           2020 Michiel Uitdehaag for muis IT
  * @licenses            GPL-3.0-or-later
  *
- * This file is part of wp-media-protector.
+ * This file is part of rbam-media.
  *
- * wp-media-protector is free software: you can redistribute it and/or modify
+ * rbam-media is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * wp-media-protector is distributed in the hope that it will be useful,
+ * rbam-media is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with wp-media-protector.  If not, see <https://www.gnu.org/licenses/>.
+ * along with rbam-media.  If not, see <https://www.gnu.org/licenses/>.
  *
  * Gracefully based loosely on the AAM Protected Media Files plugin
  * by Vasyl Martyniuk <vasyl@vasyltech.com>
  */
-
-namespace WPMediaProtector;
+namespace RBAM;
 
 class Editor {
 
@@ -51,8 +50,8 @@ class Editor {
     }
 
     public function save($post_id) {
-        if (  !isset( $_POST['wpmediaprotector_class_nonce'] ) 
-           || !wp_verify_nonce( $_POST['wpmediaprotector_class_nonce'], basename( __FILE__ ) ) ) {
+        if (  !isset( $_POST['rbammedia_class_nonce'] ) 
+           || !wp_verify_nonce( $_POST['rbammedia_class_nonce'], basename( __FILE__ ) ) ) {
             return $post_id;
         }
 
@@ -63,10 +62,10 @@ class Editor {
             return $post_id;
         }
 
-        $new_meta_value = $_POST['wpmediaprotector_roles'] ?? '';
+        $new_meta_value = $_POST['rbammedia_roles'] ?? '';
         $new_meta_value = $this->sanitizeMeta($new_meta_value);
 
-        $meta_key = '_wpmediaprotector';
+        $meta_key = '_rbammedia';
         $meta_value = get_post_meta( $post_id, $meta_key, true );
 
         if(!empty($new_meta_value) && empty($meta_value)) {
@@ -83,7 +82,7 @@ class Editor {
 
     public function metaBox($type, $post) {
         if( "attachment" == $type ) {
-		    add_meta_box( 'wpmediaprotector_metabox', __('Security'), array($this,'createMetaBox'), null, 'side');
+		    add_meta_box( 'rbammedia_metabox', __('Security'), array($this,'createMetaBox'), null, 'side');
         }
     }
 
@@ -103,21 +102,21 @@ class Editor {
     }
 
     public function createMetaBox($post) {
-        wp_enqueue_script('wpmediaprotector-scripts', plugins_url('/metabox.js', __FILE__), array('jquery'), "1.0.0", false);
+        wp_enqueue_script('rbammedia-scripts', plugins_url('/metabox.js', __FILE__), array('jquery'), "1.0.0", false);
 
         // the following is largely copied from wp-admin/includes/meta-boxes.php, post_tags_meta_box()
         $comma = _x( ',', 'tag delimiter' );
-        $name = "wpmediaprotector_roles";
+        $name = "rbammedia_roles";
         $user_can_assign_roles = true; // TODO: check on capabilities
-        $meta_key = '_wpmediaprotector';
+        $meta_key = '_rbammedia';
         $terms_to_edit = get_post_meta( $post->ID, $meta_key, true );
         $terms_to_edit = $this->convertRolesToDisplay($terms_to_edit);
 
 ?>
-        <div class="wpmediaprotectorbox" id="wpmediaprotectorbox">
-          <div id="wpmediaprotector-security">
-            <?php wp_nonce_field( basename( __FILE__ ), 'wpmediaprotector_class_nonce' ); ?>
-            <?php do_action( 'wpmediaprotector_security_actions', $post ); ?>
+        <div class="rbammediabox" id="rbammediabox">
+          <div id="rbammedia-security">
+            <?php wp_nonce_field( basename( __FILE__ ), 'rbammedia_class_nonce' ); ?>
+            <?php do_action( 'rbammedia_security_actions', $post ); ?>
         
             <div id="select-role-or-user" class='tagsdiv'>
               <?php _e('Select roles'); ?>

@@ -1,37 +1,38 @@
 <?php
 
 /**
- * MediaProtector Security routines
+ * Role Based Media Protector Security routines
  *
- * @package             wp-media-protector
+ * @package             rbam-media
  * @author              Michiel Uitdehaag
  * @copyright           2020 Michiel Uitdehaag for muis IT
  * @licenses            GPL-3.0-or-later
  *
- * This file is part of wp-media-protector.
+ * This file is part of rbam-media.
  *
- * wp-media-protector is free software: you can redistribute it and/or modify
+ * rbam-media is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * wp-media-protector is distributed in the hope that it will be useful,
+ * rbam-media is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with wp-media-protector.  If not, see <https://www.gnu.org/licenses/>.
+ * along with rbam-media.  If not, see <https://www.gnu.org/licenses/>.
  *
  * Gracefully based loosely on the AAM Protected Media Files plugin
  * by Vasyl Martyniuk <vasyl@vasyltech.com>
  */
 
- namespace WPMediaProtector;
+ namespace RBAM;
 
  class Security {
     public function __construct() {
-        if (filter_input(INPUT_GET, 'wp-media-protector')) {
+        error_log('security constructor');
+        if (filter_input(INPUT_GET, 'rbam-media')) {
             // find the media file we are supposed to protect
             $media = $this->findMedia();
 
@@ -76,7 +77,7 @@
         if($id !== null) {
             $file = get_post($id);
             if(!empty($file)) {
-                $data = $meta_value = get_post_meta( $id, "_wpmediaprotector", true );
+                $data = $meta_value = get_post_meta( $id, "_rbammedia", true );
                 if(!empty($data)) {
                     $roles = explode(',',$data);
 
@@ -171,6 +172,7 @@
         }
         $uri = mb_strtolower($uri);
 
+        error_log('looking for '.$uri);
         if(!file_exists(ABSPATH . $uri)) {
             return null;
         }

@@ -11,10 +11,10 @@ jQuery(document).ready(function($) {
 	function getLast( term ) {
 		return split( term ).pop();
     }
-	var $element = $( '#new-security-wpmediaprotector_roles' );
+	var $element = $( '#new-security-rbammedia_roles' );
 	window.tagBox.init();
-	$('#new-security-wpmediaprotector_roles').wpTagsSuggest({
-		taxonomy: "wpmediaprotector",
+	$('#new-security-rbammedia_roles').wpTagsSuggest({
+		taxonomy: "rbammedia",
 		source: function( request, response ) {
 			var term;
 
@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 			term = getLast( request.term );
 
             $.get( window.ajaxurl, {
-				action: 'wpmediaprotector',
+				action: 'rbammedia',
 				q: term
 			} ).always( function() {
 				$element.removeClass( 'ui-autocomplete-loading' ); // UI fails to remove this sometimes?

@@ -1,37 +1,37 @@
 <?php
 
 /**
- * MediaProtector Activation routines
+ * Role Based Media Protector Activation routines
  *
- * @package             wp-media-protector
+ * @package             rbam-media
  * @author              Michiel Uitdehaag
  * @copyright           2020 Michiel Uitdehaag for muis IT
  * @licenses            GPL-3.0-or-later
  *
- * This file is part of wp-media-protector.
+ * This file is part of rbam-media.
  *
- * wp-media-protector is free software: you can redistribute it and/or modify
+ * rbam-media is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * wp-media-protector is distributed in the hope that it will be useful,
+ * rbam-media is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with wp-media-protector.  If not, see <https://www.gnu.org/licenses/>.
+ * along with rbam-media.  If not, see <https://www.gnu.org/licenses/>.
  *
  * Gracefully based loosely on the AAM Protected Media Files plugin
  * by Vasyl Martyniuk <vasyl@vasyltech.com>
  */
 
- namespace WPMediaProtector;
+ namespace RBAM;
 
  class Activator {
-    const MARKSTART="### BEGIN wp-media-protector rewrite block";
-    const MARKEND="### END wp-media-protector rewrite block";
+    const MARKSTART="### BEGIN rbam-media rewrite block";
+    const MARKEND="### END rbam-media rewrite block";
 
     public function deactivate() {
         return $this->adjustAccessFile(function($file) {
@@ -94,7 +94,7 @@ $marker1
     RewriteBase /
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteCond %{REQUEST_URI} wp-content/uploads/(.*)\$
-    RewriteRule . /index.php?wp-media-protector=1 [L]
+    RewriteRule . /index.php?rbam-media=1 [L]
 </IfModule>
 $marker2
 
