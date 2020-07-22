@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Role Based Access Manager: Media Protector ===
 Contributors: muisit
 Tags: attachments, media, roles, security
 Requires at least: 5.4
@@ -12,7 +12,7 @@ Role Based Access Management for Media files (attachments).
 
 == Description ==
 
-# Role Base Media Protector
+# Role Base Access Manager: Media Protector
 WordPress plugin to assign access roles to individual files.
 
 This simple plugin allows administrators (anyone with access to the edit-post form for attachments/media) to set access based on roles.
