@@ -173,25 +173,22 @@ then
 
     if [[ "x$DRY" = "x1" ]]
     then
-        echo "svn ci -m $MESSAGE"
+        echo "svn ci -m \"$MESSAGE\""
     else
-        svn ci -m $MESSAGE
+        svn ci -m "$MESSAGE"
     fi
 
 #    if [[ "x$MAJOR" = "x1" || "x$MINOR" = "x1" ]]
 #    then
-        EXPECTEDTAG="{$MAJ}-${MIN}"
-        NEWTAG="${MAJ}.{$MIN}"
-        if [[ "x${MICR}" = "x0" ]]
+        NEWTAG="${MAJ}.${MIN}"
+        if [[ ! "x${MICR}" = "x0" ]]
         then
-            EXPECTEDTAG="$EXPECTEDTAG-"
-        else
-            EXPECTEDTAG="$EXPECTEDTAG-${MICR}"
             NEWTAG="$NEWTAG.${MICR}"
         fi
-        LASTTAG=`ls tags | sed 's/^\([0-9]*\)\.\([0-9]*\)\.?\([0-9]*\)/\1-\2-\3/' | sort -n | tail -1`
+        LASTTAG=`ls tags | sort -n | tail -1`
         
-        if [[ "x$LASTTAG" = "x${EXPECTEDTAG}" ]]
+        echo "checking last tag $LASTTAG versus $NEWTAG"
+        if [[ "x$LASTTAG" = "x${NEWTAG}" ]]
         then
             echo "Tag already exists, bailing"
             exit
