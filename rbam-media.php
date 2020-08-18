@@ -11,7 +11,7 @@
  * Plugin Name:         rbam-media
  * Plugin URI:          https://github.com/muisit/rbam-media
  * Description:         Protects WordPress media content using roles based access
- * Version:             1.0.0
+ * Version:             1.1.0
  * Requires at least:   5.4
  * Requires PHP:        7.2
  * Author:              Michiel Uitdehaag

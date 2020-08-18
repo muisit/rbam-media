@@ -31,7 +31,6 @@
 
  class Security {
     public function __construct() {
-        error_log('security constructor');
         if (filter_input(INPUT_GET, 'rbam-media')) {
             // find the media file we are supposed to protect
             $media = $this->findMedia();
@@ -172,7 +171,6 @@
         }
         $uri = mb_strtolower($uri);
 
-        error_log('looking for '.$uri);
         if(!file_exists(ABSPATH . $uri)) {
             return null;
         }

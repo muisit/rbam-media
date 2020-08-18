@@ -58,6 +58,9 @@ There is no practical limit imposed by this plugin.
 
 == Changelog ==
 
+= 1.1.0 =
+* Renamed 'Security' to 'Authorization', which covers the meta-box task better
+
 = 1.0 =
 * Initial version
 

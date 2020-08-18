@@ -82,7 +82,7 @@ class Editor {
 
     public function metaBox($type, $post) {
         if( "attachment" == $type ) {
-		    add_meta_box( 'rbammedia_metabox', __('Security'), array($this,'createMetaBox'), null, 'side');
+		    add_meta_box( 'rbammedia_metabox', __('Authorization'), array($this,'createMetaBox'), null, 'side');
         }
     }
 
