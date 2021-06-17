@@ -47,17 +47,16 @@
 
     private function adjustAccessFile($callback) {
         // check that we are using apache. If not, bail out
-        if(!isset($_SERVER['SERVER_SOFTWARE']) || strstr(strtolower($_SERVER["SERVER_SOFTWARE"]),"apache") === false) {
+        if(!isset($_SERVER['SERVER_SOFTWARE']) || 
+            (  strstr(strtolower($_SERVER["SERVER_SOFTWARE"]),"apache") === false
+            && strstr(strtolower($_SERVER["SERVER_SOFTWARE"]), "litespeed") === false
+            )) {
             return false;
         }
 
         try {
             // find the .htaccess file at the root
-            $file = $this->checkAccessPath(ABSPATH);
-
-            if($file === null) {
-                $file = $this->createAccessFile($path);
-            }
+            $file = $this->createAccessFile(ABSPATH);
             $callback($file);
             return true;
         }

@@ -57,7 +57,7 @@
 
         // check that the media file is located under the basedir, so we know for sure
         // we are in the upload directory
-        if(mb_strpos($media,$uploaddir) !== 0) {            
+        if(mb_strpos($media,$uploaddir) !== 0) {
             return false;
         }
 
@@ -79,7 +79,6 @@
                 $data = $meta_value = get_post_meta( $id, "_rbammedia", true );
                 if(!empty($data)) {
                     $roles = explode(',',$data);
-
                     // check that the current user has at least one of the roles
                     $user = wp_get_current_user();
                     $userroles = ( array ) $user->roles;
@@ -164,6 +163,26 @@
         return $id;
     }
 
+    // case insensitive file-exists
+    // see: https://stackoverflow.com/questions/3964793/php-case-insensitive-version-of-file-exists
+    private function fileExists($fileName)
+    {
+        if (file_exists($fileName)) {
+            return $fileName;
+        }
+
+        // Handle case insensitive requests            
+        $directoryName = dirname($fileName);
+        $fileArray = glob($directoryName . '/*', GLOB_NOSORT);
+        $fileNameLowerCase = strtolower($fileName);
+        foreach ($fileArray as $file) {
+            if (strtolower($file) == $fileNameLowerCase) {
+                return $file;
+            }
+        }
+        return false;
+    }
+
     private function findMedia() {
         $uri = $_SERVER['REQUEST_URI'] ?? null;
         if($uri === null) {
@@ -171,11 +190,12 @@
         }
         $uri = mb_strtolower($uri);
 
-        if(!file_exists(ABSPATH . $uri)) {
+        $file = $this->fileExists(ABSPATH . ltrim($uri,'/'));
+        if($file === false) {
             return null;
         }
         else {
-            return realpath(ABSPATH . $uri);
+            return realpath($file);
         }
     }
 
