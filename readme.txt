@@ -2,7 +2,7 @@
 Contributors: muisit
 Tags: attachments, media, roles, security
 Requires at least: 5.4
-Tested up to: 5.4
+Tested up to: 5.7
 Stable tag: trunk
 Requires PHP: 7.2
 License: GPLv3 or later
@@ -28,7 +28,7 @@ them in the database and will allow access.
 ## Roles
 This plugin works based on role access management. That means it will try to match the specified roles on the media with the available roles of a user. However, the capabilities system of `Wordpress` is cumulative: an `Administrator` has more privileges as an `Editor`, but at least the
 same. Usually, people only have one Role in this system. As this plugin does not check on capabilities, but on roles, you will need to specify
-*all* the roles that should have access to this file.
+*all* the roles that should have access to this file (including the 'administrator' role).
 
 Alternatively, you can add secondary roles to a User, allowing `Administrator` to also be a `Subscriber`. In this way, you only need to add the
 `Subscriber` role to media files to allow it to be downloaded by all registered members. However, adding secondary roles is a manual task. If you have many users and few files, it can be easier to specifiy all roles with the media. If you have many files and few users, you had better use secondary role assignments. If you have many files and many users, you should look into a way to automatically assign roles to people using some sort of on-boarding method. If you need a plugin for that, send me a message.
@@ -52,11 +52,18 @@ The plugin will try to read the accessed file from the original request and appl
 
 There is no practical limit imposed by this plugin.
 
+= Do aadministrators have access to all files =
+
+No, the plugin actively checks on the roles a user has. So if you make a file available to 'Subscriber', but not to 'Administrator', the latter roles cannot access it.
+
 == Screenshots ==
 
 1. The plugin adds an additional meta-box to the edit form of Media files
 
 == Changelog ==
+
+= 1.1.3 =
+Update the 'Tested-to' value. Added support for LiteSpeed servers, which read the .htaccess file as well.
 
 = 1.1.0 =
 * Renamed 'Security' to 'Authorization', which covers the meta-box task better
